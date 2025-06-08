@@ -2,147 +2,114 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Razvan Drobota Portfolio</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
-
-  <!-- Font Awesome con icone corrette -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
   <style>
     body {
-      background: #ccc;
       font-family: Arial, sans-serif;
+      background-color: #0f0f0f;
+      color: white;
       margin: 0;
-      padding: 20px;
+      padding: 40px;
     }
 
-    h1 {
+    .header {
       text-align: center;
-      font-size: 24px;
-      margin-top: 10px;
+      margin-bottom: 40px;
     }
 
-    p {
-      text-align: center;
-      margin-top: -10px;
-      margin-bottom: 20px;
-      font-size: 14px;
+    .name {
+      font-size: 36px;
+      font-weight: bold;
+      display: inline-block;
+      transition: transform 0.3s ease;
+      background: linear-gradient(90deg, #ffffff, #888888, #ffffff);
+      background-size: 200% auto;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .name:hover {
+      animation: wave 2s infinite linear;
+    }
+
+    @keyframes wave {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
     }
 
     .contacts {
-      text-align: center;
-      margin-bottom: 30px;
-      font-size: 14px;
+      margin-top: 10px;
     }
 
     .contacts a {
-      text-decoration: none;
-      color: black;
+      color: white;
       margin: 0 10px;
+      text-decoration: none;
     }
 
-    .contacts i {
-      margin-right: 6px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 20px;
+    .project-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
       justify-content: flex-start;
     }
 
-    .card {
+    .project {
+      width: 200px;
       text-align: center;
     }
 
-    .card img {
+    .project img {
       width: 200px;
       height: 200px;
       object-fit: cover;
-      cursor: pointer;
       display: block;
-      margin: 0 auto;
-      border: none;
+      margin-bottom: 10px;
     }
 
-    .desc {
-      font-size: 12px;
-      color: #333;
-      margin-top: 6px;
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 999;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8);
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal img {
-      max-width: 90%;
-      max-height: 90%;
+    .project-description {
+      font-size: 14px;
+      color: #ccc;
     }
   </style>
 </head>
 <body>
-
-  <h1>RAZVAN DROBOTA</h1>
-  <p>Visual Designer – Graphic direction for music and culture</p>
-
-  <div class="contacts">
-    <a href="https://instagram.com/razvan.drobota" target="_blank"><i class="fab fa-instagram"></i>@razvan.drobota</a>
-    <a href="mailto:razvandrobota@gmail.com"><i class="fas fa-envelope"></i> razvandrobota@gmail.com</a>
+  <div class="header">
+    <div class="name">RAZVAN DROBOTA</div>
+    <div>Visual Designer – Graphic direction for music and culture</div>
+    <div class="contacts">
+      <a href="https://instagram.com/razvan.drobota" target="_blank">📷 @razvan.drobota</a>
+      <a href="mailto:razvandrobota@gmail.com">✉️ razvandrobota@gmail.com</a>
+    </div>
   </div>
 
-  <div class="grid" id="projectGrid"></div>
-
-  <div class="modal" id="modal">
-    <img id="modalImg" src="" alt="">
-  </div>
+  <div class="project-grid" id="projects"></div>
 
   <script>
-    const projects = [
-      {
-        img: "tony_boy_post.jpg",
-        desc: "Going Hard live summer 2025 official flyer"
-      }
-    ];
+    fetch('projects.json')
+      .then(response => response.json())
+      .then(data => {
+        const projectsContainer = document.getElementById('projects');
+        data.forEach(project => {
+          const projectElement = document.createElement('div');
+          projectElement.className = 'project';
 
-    const grid = document.getElementById("projectGrid");
-    const modal = document.getElementById("modal");
-    const modalImg = document.getElementById("modalImg");
+          const img = document.createElement('img');
+          img.src = project.image;
+          img.alt = project.description;
 
-    projects.forEach(p => {
-      const card = document.createElement("div");
-      card.className = "card";
+          const desc = document.createElement('div');
+          desc.className = 'project-description';
+          desc.textContent = project.description;
 
-      const img = document.createElement("img");
-      img.src = p.img;
-      img.alt = p.desc;
-      img.onclick = () => {
-        modalImg.src = p.img;
-        modal.style.display = "flex";
-      };
-
-      const desc = document.createElement("div");
-      desc.className = "desc";
-      desc.textContent = p.desc;
-
-      card.appendChild(img);
-      card.appendChild(desc);
-      grid.appendChild(card);
-    });
-
-    modal.onclick = () => {
-      modal.style.display = "none";
-    };
+          projectElement.appendChild(img);
+          projectElement.appendChild(desc);
+          projectsContainer.appendChild(projectElement);
+        });
+      });
   </script>
-
 </body>
 </html>
