@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Razvan Drobota Portfolio</title>
+
+  <!-- Font Awesome per icone -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-4oV1VrJz6AhO9oNJJ4X3DEf7eKH2y5iZB7Fv3eFA2o/7GRf0+Av2VnXjV9DXZ5At5QzD0iXYFPa4jJ22zLbmgQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <style>
     body {
       margin: 0;
@@ -29,7 +33,10 @@
       margin: 0 10px;
       text-decoration: none;
       color: #000;
-      font-size: 13px;
+      font-size: 14px;
+    }
+    nav i {
+      margin-right: 5px;
     }
     .grid {
       display: grid;
@@ -77,34 +84,23 @@
       display: flex;
     }
   </style>
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Razvan Drobota Portfolio</title>
-
-  <!-- ✅ Aggiungi QUI il link per le icone -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <style>
- 
+</head>
 <body>
   <header>
     <h1>RAZVAN DROBOTA</h1>
     <p>Visual Designer – Graphic direction for music and culture</p>
     <nav>
-      <nav>
-  <a href="https://instagram.com/razvan.drobota" target="_blank">
-    <i class="fab fa-instagram"></i> @razvan.drobota
-  </a>
-  <a href="mailto:razvandrobota@gmail.com">
-    <i class="fas fa-envelope"></i> razvandrobota@gmail.com
-  </a>
-</nav>
+      <a href="https://instagram.com/razvan.drobota" target="_blank">
+        <i class="fab fa-instagram"></i> @razvan.drobota
+      </a>
+      <a href="mailto:razvandrobota@gmail.com">
+        <i class="fas fa-envelope"></i> razvandrobota@gmail.com
+      </a>
     </nav>
   </header>
 
   <section class="grid" id="portfolio">
-    <!-- I progetti verranno caricati qui -->
+    <!-- Inserirai qui i progetti nel JS -->
   </section>
 
   <div class="modal" id="modal" onclick="hideModal()">
@@ -113,9 +109,9 @@
 
   <script>
     const data = [
-      // Aggiungi qui i tuoi progetti:
-      // { img: "img1.jpg", desc: "Descrizione 1" },
-      // { img: "img2.jpg", desc: "Descrizione 2" },
+      // Inserisci qui i tuoi progetti:
+      // { img: "img1.jpg", desc: "Titolo progetto 1" },
+      // { img: "img2.jpg", desc: "Titolo progetto 2" },
     ];
 
     const container = document.getElementById("portfolio");
