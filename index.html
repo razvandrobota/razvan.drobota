@@ -2,138 +2,137 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Razvan Drobota Portfolio</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
   <style>
     body {
-      margin: 0;
+      background: #ccc;
       font-family: Arial, sans-serif;
-      background: #c5c5c5;
-      color: #111;
-      text-align: center;
-    }
-    header {
-      padding: 40px 20px 10px;
-    }
-    header h1 {
-      font-size: 32px;
       margin: 0;
-      font-weight: 900;
-      letter-spacing: 1px;
+      padding: 20px;
     }
-    header p {
-      margin: 5px 0 20px;
-      font-size: 14px;
-    }
-    nav a {
-      margin: 0 10px;
-      text-decoration: none;
-      color: #000;
-      font-size: 14px;
-    }
-    nav i {
-      margin-right: 5px;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-      padding: 30px;
-      max-width: 1400px;
-      margin: auto;
-    }
-    .item {
-      background: #e4e4e4;
-      padding: 5px;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-    .item:hover {
-      transform: scale(1.02);
-    }
-    .item img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    .item p {
-      font-size: 13px;
+
+    h1 {
+      text-align: center;
+      font-size: 24px;
       margin-top: 10px;
     }
+
+    p {
+      text-align: center;
+      margin-top: -10px;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .contacts {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+
+    .contacts a {
+      text-decoration: none;
+      color: black;
+      margin: 0 10px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      justify-content: flex-start;
+    }
+
+    .card {
+      text-align: center;
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      cursor: pointer;
+      display: block;
+      border: none;
+    }
+
+    .desc {
+      font-size: 12px;
+      color: #333;
+      margin-top: 4px;
+    }
+
     .modal {
       display: none;
       position: fixed;
       z-index: 999;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
       justify-content: center;
       align-items: center;
     }
+
     .modal img {
       max-width: 90%;
-      max-height: 80vh;
-    }
-    .modal.show {
-      display: flex;
+      max-height: 90%;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>RAZVAN DROBOTA</h1>
-    <p>Visual Designer – Graphic direction for music and culture</p>
-    <nav>
-      <a href="https://instagram.com/razvan.drobota" target="_blank">
-        <i class="fab fa-instagram"></i> @razvan.drobota
-      </a>
-      <a href="mailto:razvandrobota@gmail.com">
-        <i class="fas fa-envelope"></i> razvandrobota@gmail.com
-      </a>
-    </nav>
-  </header>
 
-  <section class="grid" id="portfolio">
-    <!-- Progetti caricati via JSON -->
-  </section>
+  <h1>RAZVAN DROBOTA</h1>
+  <p>Visual Designer – Graphic direction for music and culture</p>
 
-  <div class="modal" id="modal" onclick="hideModal()">
-    <img id="modal-img" src="" alt="Full view">
+  <div class="contacts">
+    <a href="https://instagram.com/razvan.drobota" target="_blank">📷 @razvan.drobota</a>
+    <a href="mailto:razvandrobota@gmail.com">✉️ razvandrobota@gmail.com</a>
+  </div>
+
+  <div class="grid" id="projectGrid"></div>
+
+  <div class="modal" id="modal">
+    <img id="modalImg" src="" alt="">
   </div>
 
   <script>
-    fetch('projects.json')
-      .then(response => {
-        if (!response.ok) throw new Error("JSON non trovato");
-        return response.json();
-      })
-      .then(data => {
-        const container = document.getElementById("portfolio");
-        data.forEach(item => {
-          const div = document.createElement("div");
-          div.className = "item";
-          div.innerHTML = `
-            <img src="${item.img}" alt="${item.desc}" onclick="showModal('${item.img}')">
-            <p>${item.desc}</p>
-          `;
-          container.appendChild(div);
-        });
-      })
-      .catch(err => console.error("Errore nel caricamento JSON:", err));
+    const projects = [
+      {
+        img: "tony_boy_post.jpg",
+        desc: "Going Hard live summer 2025 official flyer"
+      }
+    ];
 
-    function showModal(src) {
-      document.getElementById('modal-img').src = src;
-      document.getElementById('modal').classList.add('show');
-    }
+    const grid = document.getElementById("projectGrid");
+    const modal = document.getElementById("modal");
+    const modalImg = document.getElementById("modalImg");
 
-    function hideModal() {
-      document.getElementById('modal').classList.remove('show');
-    }
+    projects.forEach(p => {
+      const card = document.createElement("div");
+      card.className = "card";
+
+      const img = document.createElement("img");
+      img.src = p.img;
+      img.alt = p.desc;
+      img.onclick = () => {
+        modalImg.src = p.img;
+        modal.style.display = "flex";
+      };
+
+      const desc = document.createElement("div");
+      desc.className = "desc";
+      desc.textContent = p.desc;
+
+      card.appendChild(img);
+      card.appendChild(desc);
+      grid.appendChild(card);
+    });
+
+    modal.onclick = () => {
+      modal.style.display = "none";
+    };
   </script>
+
 </body>
 </html>
