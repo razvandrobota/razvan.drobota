@@ -4,6 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Razvan Drobota Portfolio</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <!-- Font Awesome con icone corrette -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <style>
     body {
       background: #ccc;
@@ -37,6 +42,10 @@
       margin: 0 10px;
     }
 
+    .contacts i {
+      margin-right: 6px;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -49,18 +58,19 @@
     }
 
     .card img {
-      width: 100%;
+      width: 200px;
       height: 200px;
       object-fit: cover;
       cursor: pointer;
       display: block;
+      margin: 0 auto;
       border: none;
     }
 
     .desc {
       font-size: 12px;
       color: #333;
-      margin-top: 4px;
+      margin-top: 6px;
     }
 
     .modal {
@@ -86,8 +96,8 @@
   <p>Visual Designer – Graphic direction for music and culture</p>
 
   <div class="contacts">
-    <a href="https://instagram.com/razvan.drobota" target="_blank">📷 @razvan.drobota</a>
-    <a href="mailto:razvandrobota@gmail.com">✉️ razvandrobota@gmail.com</a>
+    <a href="https://instagram.com/razvan.drobota" target="_blank"><i class="fab fa-instagram"></i>@razvan.drobota</a>
+    <a href="mailto:razvandrobota@gmail.com"><i class="fas fa-envelope"></i> razvandrobota@gmail.com</a>
   </div>
 
   <div class="grid" id="projectGrid"></div>
