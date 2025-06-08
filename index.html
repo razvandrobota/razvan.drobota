@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Razvan Drobota Portfolio</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -50,6 +53,10 @@
       text-decoration: none;
     }
 
+    .contacts i {
+      margin-right: 6px;
+    }
+
     .project-grid {
       display: flex;
       flex-wrap: wrap;
@@ -81,8 +88,8 @@
     <div class="name">RAZVAN DROBOTA</div>
     <div>Visual Designer – Graphic direction for music and culture</div>
     <div class="contacts">
-      <a href="https://instagram.com/razvan.drobota" target="_blank">📷 @razvan.drobota</a>
-      <a href="mailto:razvandrobota@gmail.com">✉️ razvandrobota@gmail.com</a>
+      <a href="https://instagram.com/razvan.drobota" target="_blank"><i class="fab fa-instagram"></i>@razvan.drobota</a>
+      <a href="mailto:razvandrobota@gmail.com"><i class="fas fa-envelope"></i> razvandrobota@gmail.com</a>
     </div>
   </div>
 
@@ -92,10 +99,10 @@
     fetch('projects.json')
       .then(response => response.json())
       .then(data => {
-        const projectsContainer = document.getElementById('projects');
+        const container = document.getElementById('projects');
         data.forEach(project => {
-          const projectElement = document.createElement('div');
-          projectElement.className = 'project';
+          const wrapper = document.createElement('div');
+          wrapper.className = 'project';
 
           const img = document.createElement('img');
           img.src = project.image;
@@ -105,9 +112,9 @@
           desc.className = 'project-description';
           desc.textContent = project.description;
 
-          projectElement.appendChild(img);
-          projectElement.appendChild(desc);
-          projectsContainer.appendChild(projectElement);
+          wrapper.appendChild(img);
+          wrapper.appendChild(desc);
+          container.appendChild(wrapper);
         });
       });
   </script>
