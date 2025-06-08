@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Razvan Drobota Portfolio</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #c5c5c5;
+      color: #111;
+      text-align: center;
+    }
+    header {
+      padding: 40px 20px 10px;
+    }
+    header h1 {
+      font-size: 32px;
+      margin: 0;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    header p {
+      margin: 5px 0 20px;
+      font-size: 14px;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #000;
+      font-size: 13px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      padding: 30px;
+      max-width: 1400px;
+      margin: auto;
+    }
+    .item {
+      background: #e4e4e4;
+      padding: 5px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .item:hover {
+      transform: scale(1.02);
+    }
+    .item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .item p {
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal img {
+      max-width: 90%;
+      max-height: 80vh;
+    }
+    .modal.show {
+      display: flex;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>RAZVAN DROBOTĂ</h1>
+    <p>Visual Designer – Graphic direction for music and culture</p>
+    <nav>
+      <a href="https://instagram.com/razvan.drobota" target="_blank">@razvan.drobota</a>
+      <a href="mailto:razvandrobota@gmail.com">razvandrobota@gmail.com</a>
+    </nav>
+  </header>
+
+  <section class="grid" id="portfolio">
+    <!-- I progetti verranno caricati qui -->
+  </section>
+
+  <div class="modal" id="modal" onclick="hideModal()">
+    <img id="modal-img" src="" alt="Full view">
+  </div>
+
+  <script>
+    const data = [
+      // Aggiungi qui i tuoi progetti:
+      // { img: "img1.jpg", desc: "Descrizione 1" },
+      // { img: "img2.jpg", desc: "Descrizione 2" },
+    ];
+
+    const container = document.getElementById("portfolio");
+    data.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "item";
+      div.innerHTML = `
+        <img src="${item.img}" alt="${item.desc}" onclick="showModal('${item.img}')">
+        <p>${item.desc}</p>
+      `;
+      container.appendChild(div);
+    });
+
+    function showModal(src) {
+      document.getElementById('modal-img').src = src;
+      document.getElementById('modal').classList.add('show');
+    }
+
+    function hideModal() {
+      document.getElementById('modal').classList.remove('show');
+    }
+  </script>
+</body>
+</html>
