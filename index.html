@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Razvan Drobota Portfolio</title>
   <link rel="icon" type="image/png" href="favicon.png" />
-
-  <!-- Font Awesome per icone -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <style>
     body {
@@ -101,7 +99,7 @@
   </header>
 
   <section class="grid" id="portfolio">
-    <!-- Inserirai qui i progetti nel JS -->
+    <!-- Progetti caricati via JSON -->
   </section>
 
   <div class="modal" id="modal" onclick="hideModal()">
@@ -109,22 +107,24 @@
   </div>
 
   <script>
-    const data = [
-      // Inserisci qui i tuoi progetti:
-      // { img: "img1.jpg", desc: "Titolo progetto 1" },
-      // { img: "img2.jpg", desc: "Titolo progetto 2" },
-    ];
-
-    const container = document.getElementById("portfolio");
-    data.forEach(item => {
-      const div = document.createElement("div");
-      div.className = "item";
-      div.innerHTML = `
-        <img src="${item.img}" alt="${item.desc}" onclick="showModal('${item.img}')">
-        <p>${item.desc}</p>
-      `;
-      container.appendChild(div);
-    });
+    fetch('projects.json')
+      .then(response => {
+        if (!response.ok) throw new Error("JSON non trovato");
+        return response.json();
+      })
+      .then(data => {
+        const container = document.getElementById("portfolio");
+        data.forEach(item => {
+          const div = document.createElement("div");
+          div.className = "item";
+          div.innerHTML = `
+            <img src="${item.img}" alt="${item.desc}" onclick="showModal('${item.img}')">
+            <p>${item.desc}</p>
+          `;
+          container.appendChild(div);
+        });
+      })
+      .catch(err => console.error("Errore nel caricamento JSON:", err));
 
     function showModal(src) {
       document.getElementById('modal-img').src = src;
