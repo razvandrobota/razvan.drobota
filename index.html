@@ -150,32 +150,48 @@
   </div>
 
   <script>
-    fetch('projects.json')
-      .then(response => response.json())
-      .then(data => {
-        const gallery = document.getElementById('gallery');
-        data.forEach(project => {
-          const container = document.createElement('div');
-          container.className = 'project';
-          container.innerHTML = `
-            <img src="${project.image}" alt="${project.description}" />
-            <p>${project.description}</p>
-          `;
-          gallery.appendChild(container);
+  fetch('projects.json')
+    .then(response => response.json())
+    .then(data => {
+      const gallery = document.getElementById('gallery');
+      const modal = document.getElementById('modal');
+      const modalImg = document.getElementById('modal-img');
+
+      data.forEach(project => {
+        const container = document.createElement('div');
+        container.className = 'project';
+
+        const img = document.createElement('img');
+        img.src = project.image;
+        img.alt = project.description;
+
+        // Se l'immagine non viene caricata correttamente, non viene mostrata
+        img.onerror = () => {
+          console.warn(`Immagine non trovata: ${project.image}`);
+          container.remove();
+        };
+
+        img.addEventListener('click', () => {
+          modalImg.src = img.src;
+          modal.classList.add('active');
         });
 
-        const modal = document.getElementById('modal');
-        const modalImg = document.getElementById('modal-img');
+        const caption = document.createElement('p');
+        caption.textContent = project.description;
 
-        document.querySelectorAll('.project img').forEach(img => {
-          img.addEventListener('click', () => {
-            modalImg.src = img.src;
-            modal.classList.add('active');
-          });
-        });
+        container.appendChild(img);
+        container.appendChild(caption);
+        gallery.appendChild(container);
+      });
 
-        modal.addEventListener('click', () => {
-          modal.classList.remove('active');
+      modal.addEventListener('click', () => {
+        modal.classList.remove('active');
+      });
+    })
+    .catch(error => {
+      console.error('Errore nel caricamento dei progetti:', error);
+    });
+</script>
         });
       });
   </script>
