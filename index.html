@@ -165,7 +165,6 @@
         img.src = project.image;
         img.alt = project.description;
 
-        // Se l'immagine non viene caricata correttamente, non viene mostrata
         img.onerror = () => {
           console.warn(`Immagine non trovata: ${project.image}`);
           container.remove();
@@ -192,8 +191,5 @@
       console.error('Errore nel caricamento dei progetti:', error);
     });
 </script>
-        });
-      });
-  </script>
 </body>
 </html>
