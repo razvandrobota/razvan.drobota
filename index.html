@@ -19,12 +19,6 @@
       padding: 30px 20px 10px;
     }
 
-    header img {
-      width: 40px;
-      height: 40px;
-      margin-bottom: 10px;
-    }
-
     h1 {
       font-size: 2.5rem;
       margin: 10px 0;
@@ -37,17 +31,18 @@
     h1::after {
       content: "";
       position: absolute;
-      top: 0;
+      top: -20px;
       left: var(--mouse-x, 50%);
-      width: 0;
-      height: 100%;
-      box-shadow: 0 0 25px 10px white;
+      width: 40px;
+      height: 40px;
+      background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
+      transform: translateX(-50%);
       opacity: 0;
+      pointer-events: none;
       transition: opacity 0.2s ease;
     }
 
     h1:hover::after {
-      width: 20px;
       opacity: 1;
     }
 
@@ -84,7 +79,7 @@
       width: 200px;
       height: 200px;
       object-fit: cover;
-      border-radius: 5px;
+      border-radius: 0;
       transition: transform 0.3s ease;
       cursor: pointer;
     }
@@ -93,7 +88,6 @@
       transform: scale(1.03);
     }
 
-    /* Overlay per immagine grande */
     .overlay {
       position: fixed;
       top: 0; left: 0;
@@ -108,13 +102,12 @@
     .overlay img {
       max-width: 90vw;
       max-height: 90vh;
-      border-radius: 10px;
+      border-radius: 0;
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="favicon.png" alt="Logo" />
     <h1 id="title">RAZVAN DROBOTTA</h1>
     <p>Visual Designer – Graphic direction for music and culture</p>
     <div class="contacts">
@@ -159,7 +152,6 @@
         });
       });
 
-    // Effetto bagliore localizzato sul titolo
     const title = document.getElementById('title');
     title.addEventListener('mousemove', (e) => {
       const rect = title.getBoundingClientRect();
