@@ -1,77 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>Razvan Drobota Portfolio</title>
-  <link rel="icon" type="image/png" href="favicon.png"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
       background-color: #111;
+      font-family: Arial, sans-serif;
       color: white;
-    }
-
-    header {
+      margin: 0;
+      padding: 40px 20px;
       text-align: center;
-      padding: 30px 20px 10px;
     }
 
-    h1 {
-      font-size: 2.5rem;
-      margin: 10px 0;
-      color: white;
-      position: relative;
-      display: inline-block;
-      transition: color 0.3s;
-    }
-
-    h1::after {
-      content: "";
-      position: absolute;
-      top: -20px;
-      left: var(--mouse-x, 50%);
+    header img {
       width: 40px;
-      height: 40px;
-      background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
-      transform: translateX(-50%);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s ease;
+      vertical-align: middle;
+      margin-right: 10px;
     }
 
-    h1:hover::after {
-      opacity: 1;
+    .title {
+      font-size: 2.5em;
+      font-weight: bold;
+      color: white;
+      transition: text-shadow 0.3s ease;
+      display: inline-block;
     }
 
-    header p {
-      margin: 5px 0 15px;
-      font-size: 1rem;
+    .title:hover {
+      text-shadow: 0 0 8px #ffffff, 0 0 12px #ffffff, 0 0 18px #ffffff;
     }
 
     .contacts {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
       margin-top: 10px;
-      font-size: 1.1rem;
+      font-size: 1em;
     }
 
     .contacts i {
-      margin-right: 8px;
+      margin: 0 5px;
     }
 
-    .gallery {
+    .grid {
       display: flex;
       flex-wrap: wrap;
-      padding: 20px;
+      justify-content: center;
+      margin-top: 40px;
       gap: 40px;
     }
 
     .project {
-      width: 200px;
+      max-width: 200px;
       text-align: center;
     }
 
@@ -79,85 +58,92 @@
       width: 200px;
       height: 200px;
       object-fit: cover;
-      border-radius: 0;
-      transition: transform 0.3s ease;
       cursor: pointer;
+      border-radius: 0;
+      transition: transform 0.2s ease;
     }
 
     .project img:hover {
-      transform: scale(1.03);
+      transform: scale(1.05);
+    }
+
+    .description {
+      margin-top: 8px;
+      font-size: 0.9em;
     }
 
     .overlay {
       position: fixed;
       top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: rgba(0, 0, 0, 0.85);
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.95);
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 1000;
+      z-index: 999;
     }
 
     .overlay img {
-      max-width: 90vw;
-      max-height: 90vh;
+      max-width: 90%;
+      max-height: 90%;
       border-radius: 0;
     }
   </style>
 </head>
 <body>
+
   <header>
-    <h1 id="title">RAZVAN DROBOTTA</h1>
+    <img src="favicon.png" alt="Logo">
+    <h1 class="title">RAZVAN DROBOTA</h1>
     <p>Visual Designer – Graphic direction for music and culture</p>
     <div class="contacts">
-      <span><i class="fab fa-instagram"></i> @razvan.drobota</span>
-      <span><i class="fas fa-envelope"></i> razvandrobota@gmail.com</span>
+      <i class="fab fa-instagram"></i> @razvan.drobota
+      <i class="fas fa-envelope"></i> razvandrobota@gmail.com
     </div>
   </header>
 
-  <div class="gallery" id="gallery"></div>
+  <div class="grid" id="projectGrid"></div>
 
   <script>
-    fetch('projects.json')
-      .then(response => response.json())
-      .then(data => {
-        const gallery = document.getElementById('gallery');
-        data.forEach(project => {
-          const div = document.createElement('div');
-          div.className = 'project';
+    const projects = [
+      {
+        image: "tony_boy_post.jpg",
+        description: "Going Hard live summer 2025 official flyer"
+      }
+    ];
 
-          const img = document.createElement('img');
-          img.src = project.image;
-          img.alt = project.description;
+    const grid = document.getElementById("projectGrid");
 
-          img.addEventListener('click', () => {
-            const overlay = document.createElement('div');
-            overlay.className = 'overlay';
+    projects.forEach(project => {
+      const container = document.createElement("div");
+      container.className = "project";
 
-            const bigImg = document.createElement('img');
-            bigImg.src = img.src;
+      const img = document.createElement("img");
+      img.src = project.image;
+      img.alt = project.description;
+      img.onclick = () => openOverlay(project.image);
 
-            overlay.appendChild(bigImg);
-            overlay.addEventListener('click', () => document.body.removeChild(overlay));
-            document.body.appendChild(overlay);
-          });
+      const caption = document.createElement("div");
+      caption.className = "description";
+      caption.innerText = project.description;
 
-          const caption = document.createElement('p');
-          caption.textContent = project.description;
-
-          div.appendChild(img);
-          div.appendChild(caption);
-          gallery.appendChild(div);
-        });
-      });
-
-    const title = document.getElementById('title');
-    title.addEventListener('mousemove', (e) => {
-      const rect = title.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      title.style.setProperty('--mouse-x', `${x}px`);
+      container.appendChild(img);
+      container.appendChild(caption);
+      grid.appendChild(container);
     });
+
+    function openOverlay(src) {
+      const overlay = document.createElement("div");
+      overlay.className = "overlay";
+      overlay.onclick = () => overlay.remove();
+
+      const image = document.createElement("img");
+      image.src = src;
+
+      overlay.appendChild(image);
+      document.body.appendChild(overlay);
+    }
   </script>
+
 </body>
 </html>
