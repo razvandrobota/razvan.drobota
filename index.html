@@ -14,22 +14,33 @@
       text-align: center;
     }
 
-    header img {
-      width: 40px;
-      vertical-align: middle;
-      margin-right: 10px;
-    }
-
     .title {
       font-size: 2.5em;
       font-weight: bold;
       color: white;
-      transition: text-shadow 0.3s ease;
+      display: inline-block;
+      background: linear-gradient(90deg, white, white);
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: white;
+      position: relative;
+    }
+
+    .title span {
+      position: relative;
       display: inline-block;
     }
 
-    .title:hover {
-      text-shadow: 0 0 8px #ffffff, 0 0 12px #ffffff, 0 0 18px #ffffff;
+    .title span:hover::before {
+      content: attr(data-char);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      text-shadow: 0 0 8px white, 0 0 12px white;
+      pointer-events: none;
     }
 
     .contacts {
@@ -44,7 +55,7 @@
     .grid {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
+      justify-content: flex-start;
       margin-top: 40px;
       gap: 40px;
     }
@@ -93,8 +104,11 @@
 <body>
 
   <header>
-    <img src="favicon.png" alt="Logo">
-    <h1 class="title">RAZVAN DROBOTA</h1>
+    <h1 class="title">
+      <span data-char="R">R</span><span data-char="A">A</span><span data-char="Z">Z</span><span data-char="V">V</span><span data-char="A">A</span><span data-char="N">N</span>
+      <span data-char=" ">&nbsp;</span>
+      <span data-char="D">D</span><span data-char="R">R</span><span data-char="O">O</span><span data-char="B">B</span><span data-char="O">O</span><span data-char="T">T</span><span data-char="A">A</span>
+    </h1>
     <p>Visual Designer – Graphic direction for music and culture</p>
     <div class="contacts">
       <i class="fab fa-instagram"></i> @razvan.drobota
