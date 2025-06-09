@@ -81,19 +81,19 @@
       max-width: 200px;
     }
 
-    .project img {
-      width: 200px;
-      height: 200px;
-      object-fit: cover;
-      cursor: pointer;
-      display: block;
-      border-radius: 0;
-    }
+.project img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  cursor: pointer;
+  display: block;
+  border-radius: 0;
+  transition: transform 0.3s ease;
+}
 
-    .project p {
-      margin-top: 8px;
-      font-size: 0.9rem;
-    }
+.project img:hover {
+  transform: scale(1.08);
+}
 
     .modal {
       display: none;
