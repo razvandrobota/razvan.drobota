@@ -2,66 +2,77 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Razvan Drobota Portfolio</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #0f0f0f;
-      color: white;
       margin: 0;
-      padding: 40px;
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: white;
     }
 
-    .header {
+    header {
       text-align: center;
-      margin-bottom: 40px;
+      padding: 30px 20px 10px;
     }
 
-    .name {
-      font-size: 36px;
-      font-weight: bold;
+    header img {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin: 10px 0;
+      color: white;
+      position: relative;
       display: inline-block;
-      transition: transform 0.3s ease;
-      background: linear-gradient(90deg, #ffffff, #888888, #ffffff);
-      background-size: 200% auto;
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      -webkit-text-fill-color: transparent;
+      transition: color 0.3s;
     }
 
-    .name:hover {
-      animation: wave 2s infinite linear;
+    h1::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: var(--mouse-x, 50%);
+      width: 0;
+      height: 100%;
+      box-shadow: 0 0 25px 10px white;
+      opacity: 0;
+      transition: opacity 0.2s ease;
     }
 
-    @keyframes wave {
-      0% { background-position: 0% center; }
-      100% { background-position: 200% center; }
+    h1:hover::after {
+      width: 20px;
+      opacity: 1;
+    }
+
+    header p {
+      margin: 5px 0 15px;
+      font-size: 1rem;
     }
 
     .contacts {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
       margin-top: 10px;
-    }
-
-    .contacts a {
-      color: white;
-      margin: 0 10px;
-      text-decoration: none;
+      font-size: 1.1rem;
     }
 
     .contacts i {
-      margin-right: 6px;
+      margin-right: 8px;
     }
 
-    .project-grid {
+    .gallery {
       display: flex;
       flex-wrap: wrap;
-      gap: 30px;
-      justify-content: flex-start;
+      padding: 20px;
+      gap: 40px;
     }
 
     .project {
@@ -73,50 +84,88 @@
       width: 200px;
       height: 200px;
       object-fit: cover;
-      display: block;
-      margin-bottom: 10px;
+      border-radius: 5px;
+      transition: transform 0.3s ease;
+      cursor: pointer;
     }
 
-    .project-description {
-      font-size: 14px;
-      color: #ccc;
+    .project img:hover {
+      transform: scale(1.03);
+    }
+
+    /* Overlay per immagine grande */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .overlay img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
-  <div class="header">
-    <div class="name">RAZVAN DROBOTA</div>
-    <div>Visual Designer – Graphic direction for music and culture</div>
+  <header>
+    <img src="favicon.png" alt="Logo" />
+    <h1 id="title">RAZVAN DROBOTTA</h1>
+    <p>Visual Designer – Graphic direction for music and culture</p>
     <div class="contacts">
-      <a href="https://instagram.com/razvan.drobota" target="_blank"><i class="fab fa-instagram"></i>@razvan.drobota</a>
-      <a href="mailto:razvandrobota@gmail.com"><i class="fas fa-envelope"></i> razvandrobota@gmail.com</a>
+      <span><i class="fab fa-instagram"></i> @razvan.drobota</span>
+      <span><i class="fas fa-envelope"></i> razvandrobota@gmail.com</span>
     </div>
-  </div>
+  </header>
 
-  <div class="project-grid" id="projects"></div>
+  <div class="gallery" id="gallery"></div>
 
   <script>
     fetch('projects.json')
       .then(response => response.json())
       .then(data => {
-        const container = document.getElementById('projects');
+        const gallery = document.getElementById('gallery');
         data.forEach(project => {
-          const wrapper = document.createElement('div');
-          wrapper.className = 'project';
+          const div = document.createElement('div');
+          div.className = 'project';
 
           const img = document.createElement('img');
           img.src = project.image;
           img.alt = project.description;
 
-          const desc = document.createElement('div');
-          desc.className = 'project-description';
-          desc.textContent = project.description;
+          img.addEventListener('click', () => {
+            const overlay = document.createElement('div');
+            overlay.className = 'overlay';
 
-          wrapper.appendChild(img);
-          wrapper.appendChild(desc);
-          container.appendChild(wrapper);
+            const bigImg = document.createElement('img');
+            bigImg.src = img.src;
+
+            overlay.appendChild(bigImg);
+            overlay.addEventListener('click', () => document.body.removeChild(overlay));
+            document.body.appendChild(overlay);
+          });
+
+          const caption = document.createElement('p');
+          caption.textContent = project.description;
+
+          div.appendChild(img);
+          div.appendChild(caption);
+          gallery.appendChild(div);
         });
       });
+
+    // Effetto bagliore localizzato sul titolo
+    const title = document.getElementById('title');
+    title.addEventListener('mousemove', (e) => {
+      const rect = title.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      title.style.setProperty('--mouse-x', `${x}px`);
+    });
   </script>
 </body>
 </html>
