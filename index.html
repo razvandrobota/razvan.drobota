@@ -118,11 +118,29 @@
       display: flex;
     }
 
-    @media (max-width: 600px) {
-      .gallery {
-        justify-content: center;
-      }
-    }
+@media (max-width: 600px) {
+  h1 {
+    flex-wrap: nowrap;
+    font-size: 1.8rem;
+    justify-content: center;
+  }
+
+  .gallery {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 20px;
+  }
+
+  .project {
+    flex: 0 0 auto;
+  }
+
+  .project img {
+    width: 180px;
+    height: 180px;
+  }
+}
   </style>
 </head>
 <body>
