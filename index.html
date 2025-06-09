@@ -20,14 +20,25 @@
       padding: 50px 20px 20px;
     }
 
-    h1 {
-      font-size: 2.5rem;
-      font-weight: bold;
-      display: flex;
-      justify-content: center;
-      gap: 0.3rem;
-      flex-wrap: wrap;
-    }
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  background: linear-gradient(90deg, white, #555, white);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 4s infinite linear;
+}
+
+@keyframes shine {
+  from {
+    background-position: 200% center;
+  }
+  to {
+    background-position: 0% center;
+  }
+}
 
     h1 span {
       display: inline-block;
@@ -145,11 +156,7 @@
 </head>
 <body>
   <header>
-    <h1>
-      <span>R</span><span>A</span><span>Z</span><span>V</span><span>A</span><span>N</span>
-      <span>&nbsp;</span>
-      <span>D</span><span>R</span><span>O</span><span>B</span><span>O</span><span>T</span><span>A</span>
-    </h1>
+<h1>RAZVAN DROBOTA</h1>
     <p>Visual Designer – Graphic direction for music and culture</p>
     <div class="contacts">
       <a href="https://www.instagram.com/razvan.drobota" target="_blank">
